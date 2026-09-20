@@ -1,0 +1,1561 @@
+{
+  "version": 3,
+  "start": "2026-09-21",
+  "hours_per_week": 6,
+  "layers": [
+    "base",
+    "claude",
+    "ecosystem"
+  ],
+  "phases": [
+    {
+      "num": 0,
+      "slug": "setup",
+      "title": "Setup",
+      "weeks": [
+        {
+          "week": 0,
+          "focus": "Repo, Quartz, Console, llm-client skeleton",
+          "learn": [
+            "Đọc Quartz v4 docs (setup, GitHub Pages)",
+            "Đọc Anthropic Console: keys, spend limits"
+          ],
+          "build": [
+            "git init, push repo public",
+            "Cài Quartz v4 vào repo (giữ content/), Obsidian vault trỏ content/",
+            "Chạy `node scripts/scaffold.mjs` và `node scripts/progress.mjs`",
+            "GitHub Actions deploy Pages",
+            "pnpm workspace `projects/`, `.env.example`",
+            "`projects/shared/llm-client`: interface + contract test (chưa adapter)",
+            "Anthropic Console: API key + spend limit"
+          ],
+          "notes": [
+            "claude-console-setup"
+          ],
+          "deliverable": "GitHub Pages hiển thị hub với progress table",
+          "start": "2026-09-21",
+          "end": "2026-09-27"
+        }
+      ]
+    },
+    {
+      "num": 1,
+      "slug": "llm-fundamentals",
+      "title": "LLM Fundamentals + Claude models",
+      "weeks": [
+        {
+          "week": 1,
+          "focus": "Transformer, tokenization, context window",
+          "learn": [
+            "Transformer intuition: attention, KV cache, vì sao inference đắt",
+            "BPE tokenization; context window & context rot"
+          ],
+          "build": [
+            "Adapter Anthropic (raw SDK) cho llm-client: `chat` + `stream`",
+            "Contract test chạy với adapter thật (1 call)"
+          ],
+          "notes": [
+            "llm-transformer-intuition",
+            "llm-tokenization",
+            "llm-context-window",
+            "claude-console-workbench"
+          ],
+          "start": "2026-09-28",
+          "end": "2026-10-04"
+        },
+        {
+          "week": 2,
+          "focus": "Inference, sampling, limitations, ML literacy",
+          "learn": [
+            "Inference vs training; AI engineer vs ML engineer",
+            "Sampling params; non-determinism",
+            "Hallucination, cutoff, sycophancy",
+            "Precision/recall/F1, cosine"
+          ],
+          "build": [
+            "p01-llm-cli: chat streaming qua llm-client",
+            "Token count (Token Counting API) + cost mỗi lượt"
+          ],
+          "notes": [
+            "llm-inference-vs-training",
+            "llm-sampling-params",
+            "llm-limitations-hallucination",
+            "ml-literacy-minimum",
+            "claude-token-counting"
+          ],
+          "start": "2026-10-05",
+          "end": "2026-10-11"
+        },
+        {
+          "week": 3,
+          "focus": "Pricing, landscape, Claude model family",
+          "learn": [
+            "Pricing model chung; ước tính cost 1 feature",
+            "Landscape 2026; Claude Opus/Sonnet/Haiku"
+          ],
+          "build": [
+            "Adapter OpenAI tối thiểu; flag `--provider --model`",
+            "Lưu conversation JSON; Vitest mocked adapter"
+          ],
+          "notes": [
+            "llm-pricing-model",
+            "models-landscape-2026",
+            "claude-model-family",
+            "portability-model-selection"
+          ],
+          "deliverable": "p01 chạy được với 2 provider, in cost",
+          "checkpoint": "Chọn đúng model cho 5 task kèm cost; giải thích precision/recall bằng ví dụ retrieval",
+          "start": "2026-10-12",
+          "end": "2026-10-18"
+        }
+      ]
+    },
+    {
+      "num": 2,
+      "slug": "llm-apis-prompting",
+      "title": "LLM APIs & Prompting",
+      "weeks": [
+        {
+          "week": 4,
+          "focus": "Chat API anatomy, Messages API, streaming backend",
+          "learn": [
+            "Roles, multi-turn state, streaming events, stop reasons, retry/backoff",
+            "Messages API chi tiết",
+            "SSE/WebSocket backend, backpressure, cancel"
+          ],
+          "build": [
+            "p02-lesson-forge skeleton",
+            "Endpoint SSE stream cho web"
+          ],
+          "notes": [
+            "api-chat-anatomy",
+            "claude-messages-api",
+            "prod-streaming-sse-backend"
+          ],
+          "start": "2026-10-19",
+          "end": "2026-10-25"
+        },
+        {
+          "week": 5,
+          "focus": "Tool calling, structured output, prompt patterns",
+          "learn": [
+            "Tool calling concept; Claude tool use",
+            "Structured output concept; Zod validate+retry",
+            "Prompt patterns; prompt versioning"
+          ],
+          "build": [
+            "Lesson outline + quiz JSON (Zod), retry khi invalid",
+            "`prompts/` versioned, snapshot test"
+          ],
+          "notes": [
+            "api-tool-calling-concept",
+            "api-structured-output-concept",
+            "claude-tool-use",
+            "claude-structured-outputs",
+            "prompt-patterns",
+            "prompt-versioning"
+          ],
+          "start": "2026-10-26",
+          "end": "2026-11-01"
+        },
+        {
+          "week": 6,
+          "focus": "Caching, reasoning, batch, files, Anthropic prompt guide",
+          "learn": [
+            "Prompt caching concept → Claude breakpoints/TTL",
+            "Reasoning concept → extended thinking",
+            "Batch concept → Batch API; Files API",
+            "XML tags, prefill, long-context tips"
+          ],
+          "build": [
+            "Bật caching cho system prompt + rubric; đo cost trước/sau",
+            "Batch mode sinh 50 lesson; ghi số liệu vào note"
+          ],
+          "notes": [
+            "api-prompt-caching-concept",
+            "api-reasoning-models-concept",
+            "api-batch-concept",
+            "claude-prompt-caching",
+            "claude-extended-thinking",
+            "claude-batch-files-api",
+            "claude-prompt-guide-xml-prefill",
+            "portability-openai-responses-gemini-caching"
+          ],
+          "deliverable": "p02 với caching + batch, có số liệu cost",
+          "checkpoint": "Quiz caching economics, stop reasons, streaming edge cases",
+          "start": "2026-11-02",
+          "end": "2026-11-08"
+        }
+      ]
+    },
+    {
+      "num": 3,
+      "slug": "safety-security",
+      "title": "Safety & Security",
+      "weeks": [
+        {
+          "week": 7,
+          "focus": "Prompt injection, OWASP, adversarial testing",
+          "learn": [
+            "Direct/indirect injection, exfiltration qua tool output",
+            "OWASP LLM Top 10",
+            "promptfoo"
+          ],
+          "build": [
+            "`tests/redteam/*.yaml` 30 case base",
+            "promptfoo chạy local trên p02"
+          ],
+          "notes": [
+            "sec-prompt-injection",
+            "sec-owasp-llm-top10",
+            "sec-adversarial-testing"
+          ],
+          "start": "2026-11-09",
+          "end": "2026-11-15"
+        },
+        {
+          "week": 8,
+          "focus": "Guardrails, moderation, Claude-specific",
+          "learn": [
+            "Defense in depth, allow-list, least privilege, HITL, sandboxing",
+            "Moderation/PII; Claude làm classifier",
+            "Tool permission model, computer use risks"
+          ],
+          "build": [
+            "Guardrail layer input/output cho p02",
+            "Moderator bằng Haiku",
+            "+10 case Claude-specific"
+          ],
+          "notes": [
+            "sec-guardrails-layers",
+            "sec-moderation-pii",
+            "claude-as-moderator",
+            "claude-tool-permissions"
+          ],
+          "start": "2026-11-16",
+          "end": "2026-11-22"
+        },
+        {
+          "week": 9,
+          "focus": "Ethics, alignment, policy, CI gate",
+          "learn": [
+            "Bias/fairness, disclaimer",
+            "RLHF, Constitutional AI (mức phỏng vấn)",
+            "Anthropic Usage Policy"
+          ],
+          "build": [
+            "CI fail nếu red-team pass-rate < ngưỡng",
+            "Tự viết 5 prompt phá p02 rồi vá"
+          ],
+          "notes": [
+            "ethics-bias-fairness",
+            "alignment-overview",
+            "anthropic-usage-policy",
+            "portability-openai-moderation-api"
+          ],
+          "deliverable": "p02 hardened, red-team gate trong CI",
+          "start": "2026-11-23",
+          "end": "2026-11-29"
+        }
+      ]
+    },
+    {
+      "num": 4,
+      "slug": "open-source-local",
+      "title": "Open Source, Local & Fine-tuning overview",
+      "weeks": [
+        {
+          "week": 10,
+          "focus": "HF Hub, quantization, Ollama, Transformers.js",
+          "learn": [
+            "Model card, license",
+            "GGUF Q4/Q8; Ollama trên MacBook; Transformers.js"
+          ],
+          "build": [
+            "Adapter Ollama (OpenAI-compatible) cho llm-client",
+            "Chạy 2 model local qua p01"
+          ],
+          "notes": [
+            "oss-hf-hub-licenses",
+            "oss-quantization-ollama-transformersjs"
+          ],
+          "start": "2026-11-30",
+          "end": "2026-12-06"
+        },
+        {
+          "week": 11,
+          "focus": "Fine-tuning overview, decision matrix, bench",
+          "learn": [
+            "SFT, LoRA/QLoRA, RLHF/DPO, distillation — khi nào cần",
+            "Ma trận privacy/cost/latency/quality"
+          ],
+          "build": [
+            "p04-api-vs-local: 20 task Haiku vs Sonnet vs local, judge bằng Claude",
+            "Bảng kết quả vào note; blog #1"
+          ],
+          "notes": [
+            "ft-overview-sft-lora-rlhf",
+            "decision-api-vs-oss",
+            "portability-oss-hosted-providers"
+          ],
+          "deliverable": "Blog #1: API vs local bench",
+          "start": "2026-12-07",
+          "end": "2026-12-13"
+        }
+      ]
+    },
+    {
+      "num": 5,
+      "slug": "embeddings-vector-db",
+      "title": "Embeddings, Vector DB & Data parsing",
+      "weeks": [
+        {
+          "week": 12,
+          "focus": "Embeddings geometry, metrics, models",
+          "learn": [
+            "Hình học embedding, dimension, Matryoshka",
+            "Cosine/dot/L2",
+            "Voyage vs OpenAI vs bge"
+          ],
+          "build": [
+            "`llm-client.embed` với adapter Voyage + OpenAI",
+            "Thí nghiệm nhỏ: similarity giữa 20 câu"
+          ],
+          "notes": [
+            "emb-what-are-embeddings",
+            "emb-similarity-metrics",
+            "emb-models-comparison"
+          ],
+          "start": "2026-12-14",
+          "end": "2026-12-20"
+        },
+        {
+          "week": 13,
+          "focus": "Use cases, document parsing",
+          "learn": [
+            "Search, kNN classification, clustering, dedupe",
+            "PDF/HTML/Markdown → text, OCR, tables, metadata"
+          ],
+          "build": [
+            "Parser cho notes markdown + PDF trong p05-brain-search",
+            "kNN classifier cho `section` của note"
+          ],
+          "notes": [
+            "emb-use-cases",
+            "data-document-parsing"
+          ],
+          "start": "2026-12-21",
+          "end": "2026-12-27"
+        },
+        {
+          "week": 14,
+          "focus": "pgvector, indexes",
+          "learn": [
+            "pgvector trên Supabase vs Qdrant/Chroma",
+            "HNSW vs IVFFlat, filtering"
+          ],
+          "build": [
+            "Index toàn bộ notes vào pgvector",
+            "CLI semantic search có filter section/stage"
+          ],
+          "notes": [
+            "vdb-pgvector-supabase",
+            "vdb-hnsw-ivfflat"
+          ],
+          "start": "2026-12-28",
+          "end": "2027-01-03"
+        },
+        {
+          "week": 15,
+          "focus": "Hybrid search, retrieval eval",
+          "learn": [
+            "BM25 + vector, fusion"
+          ],
+          "build": [
+            "Hybrid search",
+            "30 query gán nhãn, recall@k; bảng vào note"
+          ],
+          "notes": [
+            "vdb-hybrid-search",
+            "portability-embeddings-providers"
+          ],
+          "deliverable": "p05 search với recall@k đo được",
+          "start": "2027-01-04",
+          "end": "2027-01-10"
+        }
+      ]
+    },
+    {
+      "num": 6,
+      "slug": "rag",
+      "title": "RAG",
+      "weeks": [
+        {
+          "week": 16,
+          "focus": "Pipeline, chunking",
+          "learn": [
+            "RAG pipeline và chỗ hỏng",
+            "Chunking strategies"
+          ],
+          "build": [
+            "p06-ask-my-brain skeleton, ingest từ p05",
+            "3 chunker, so sánh"
+          ],
+          "notes": [
+            "rag-pipeline",
+            "rag-chunking-strategies"
+          ],
+          "start": "2027-01-11",
+          "end": "2027-01-17"
+        },
+        {
+          "week": 17,
+          "focus": "Query rewriting, reranking, contextual retrieval",
+          "learn": [
+            "HyDE, query rewriting",
+            "Reranking",
+            "Contextual retrieval (cookbook)"
+          ],
+          "build": [
+            "Contextual retrieval bằng Haiku (caching)",
+            "Voyage rerank"
+          ],
+          "notes": [
+            "rag-query-rewriting-hyde",
+            "rag-reranking",
+            "rag-contextual-retrieval"
+          ],
+          "start": "2027-01-18",
+          "end": "2027-01-24"
+        },
+        {
+          "week": 18,
+          "focus": "Citations, RAG vs long-context",
+          "learn": [
+            "Citations concept → Citations API",
+            "Khi nào long-context thay vector DB; caching cho docs"
+          ],
+          "build": [
+            "Citations 2 cách: prompt-based vs Citations API, so sánh",
+            "Streaming với citations link về note gốc"
+          ],
+          "notes": [
+            "rag-citations-concept",
+            "claude-citations-api",
+            "rag-vs-long-context",
+            "claude-long-context-caching"
+          ],
+          "start": "2027-01-25",
+          "end": "2027-01-31"
+        },
+        {
+          "week": 19,
+          "focus": "RAG eval",
+          "learn": [
+            "Faithfulness, relevance, context precision/recall",
+            "Failure modes"
+          ],
+          "build": [
+            "Golden set 50 câu",
+            "Eval suite chạy CI"
+          ],
+          "notes": [
+            "rag-eval-metrics",
+            "rag-failure-modes"
+          ],
+          "start": "2027-02-01",
+          "end": "2027-02-07"
+        },
+        {
+          "week": 20,
+          "focus": "Frameworks vs raw, deploy",
+          "learn": [
+            "LangChain.js, LlamaIndex.TS với Anthropic provider"
+          ],
+          "build": [
+            "Variant LangChain + LlamaIndex để so sánh",
+            "Deploy (Vercel/Cloudflare Workers); blog #2"
+          ],
+          "notes": [
+            "rag-frameworks-vs-raw",
+            "portability-openai-file-search-gemini-rag"
+          ],
+          "deliverable": "p06 deployed, faithfulness ≥ 0.85",
+          "checkpoint": "System design: RAG 10M docs, khi nào long-context thay được",
+          "start": "2027-02-08",
+          "end": "2027-02-14"
+        }
+      ]
+    },
+    {
+      "num": 7,
+      "slug": "agents-mcp-sdk",
+      "title": "Agents · MCP · Agent SDK · Skills",
+      "weeks": [
+        {
+          "week": 21,
+          "focus": "Agent loop tay, patterns",
+          "learn": [
+            "Đọc 'Building effective agents'",
+            "Loop: plan→tool→observe, stop, budget, state machine",
+            "Khi nào không cần agent"
+          ],
+          "build": [
+            "p07 agent loop tay trên llm-client (không framework)",
+            "Max steps, budget, stop conditions + tests"
+          ],
+          "notes": [
+            "agent-loop-from-scratch",
+            "agent-patterns",
+            "agent-when-not-to"
+          ],
+          "start": "2027-02-15",
+          "end": "2027-02-21"
+        },
+        {
+          "week": 22,
+          "focus": "Tool design, MCP server",
+          "learn": [
+            "'Writing tools for agents'; idempotency",
+            "MCP spec: tools/resources/prompts"
+          ],
+          "build": [
+            "MCP server: list_topics, update_stage, create_note, search_notes (dùng p05)"
+          ],
+          "notes": [
+            "agent-tool-design",
+            "mcp-server-ts"
+          ],
+          "start": "2027-02-22",
+          "end": "2027-02-28"
+        },
+        {
+          "week": 23,
+          "focus": "MCP client, memory, multi-agent, reliability, landscape",
+          "learn": [
+            "Transports, auth, A2A overview",
+            "Memory & compaction",
+            "Multi-agent, HITL",
+            "Agent eval; frameworks landscape"
+          ],
+          "build": [
+            "Test MCP server với 2 client khác nhau",
+            "HITL approve trước khi mở PR"
+          ],
+          "notes": [
+            "mcp-client-transports-auth",
+            "agent-memory-context",
+            "agent-multi-agent-hitl",
+            "agent-eval-reliability",
+            "agent-frameworks-landscape"
+          ],
+          "start": "2027-03-01",
+          "end": "2027-03-07"
+        },
+        {
+          "week": 24,
+          "focus": "Claude Agent SDK",
+          "learn": [
+            "Tools, permissions, hooks, subagents, sessions, memory tool"
+          ],
+          "build": [
+            "Port agent loop tay sang Agent SDK",
+            "Note so sánh loop tay vs SDK"
+          ],
+          "notes": [
+            "claude-agent-sdk"
+          ],
+          "start": "2027-03-08",
+          "end": "2027-03-14"
+        },
+        {
+          "week": 25,
+          "focus": "Skills, Claude Code platform",
+          "learn": [
+            "Agent Skills",
+            "CLAUDE.md, hooks, custom subagents"
+          ],
+          "build": [
+            "Skill + subagent + hooks cho workflow weekly log → plan → note skeleton → PR"
+          ],
+          "notes": [
+            "claude-agent-skills",
+            "claude-code-platform-hooks-subagents"
+          ],
+          "start": "2027-03-15",
+          "end": "2027-03-21"
+        },
+        {
+          "week": 26,
+          "focus": "Plugin, computer use, managed agents",
+          "learn": [
+            "Plugin/marketplace",
+            "Computer use overview",
+            "Managed Agents overview"
+          ],
+          "build": [
+            "Đóng gói plugin (MCP + Skill + subagent), publish",
+            "Blog #3"
+          ],
+          "notes": [
+            "claude-code-plugins",
+            "claude-computer-use-overview",
+            "anthropic-managed-agents-overview",
+            "portability-openai-agents-sdk-google-adk"
+          ],
+          "deliverable": "Claude Code plugin publish, dùng thật",
+          "checkpoint": "Plugin chạy 2 tuần; MCP test với 2 client; quiz agent reliability",
+          "start": "2027-03-22",
+          "end": "2027-03-28"
+        }
+      ]
+    },
+    {
+      "num": 8,
+      "slug": "multimodal",
+      "title": "Multimodal",
+      "weeks": [
+        {
+          "week": 27,
+          "focus": "Vision, audio/video pipeline",
+          "learn": [
+            "OCR, chart/document, UI screenshot understanding",
+            "STT→LLM→TTS; video→transcript",
+            "Claude vision & PDF native"
+          ],
+          "build": [
+            "p08-lecture-pipeline: video → Whisper transcript → chapters/summary/quiz (p02)"
+          ],
+          "notes": [
+            "mm-vision-concepts",
+            "mm-audio-video-pipeline",
+            "claude-vision-images-pdf"
+          ],
+          "start": "2027-03-29",
+          "end": "2027-04-04"
+        },
+        {
+          "week": 28,
+          "focus": "Image gen, tích hợp",
+          "learn": [
+            "Image generation: khả năng/giới hạn"
+          ],
+          "build": [
+            "Slide PDF qua Claude vision → index vào p06",
+            "Nối n8n (optional)"
+          ],
+          "notes": [
+            "mm-image-generation",
+            "portability-gemini-multimodal-openai-audio"
+          ],
+          "deliverable": "p08 chạy end-to-end trên 1 video thật",
+          "start": "2027-04-05",
+          "end": "2027-04-11"
+        }
+      ]
+    },
+    {
+      "num": 9,
+      "slug": "evals-observability-production",
+      "title": "Evals, Observability, Production & Gateway",
+      "weeks": [
+        {
+          "week": 29,
+          "focus": "Eval hệ thống",
+          "learn": [
+            "Golden datasets, offline vs online",
+            "LLM-as-judge bias",
+            "Regression CI, A/B prompt"
+          ],
+          "build": [
+            "Golden datasets cho p06 + p07; judge bằng Claude"
+          ],
+          "notes": [
+            "eval-golden-dataset",
+            "eval-llm-as-judge",
+            "eval-ci-regression"
+          ],
+          "start": "2027-04-12",
+          "end": "2027-04-18"
+        },
+        {
+          "week": 30,
+          "focus": "Observability",
+          "learn": [
+            "OpenTelemetry GenAI semantic conventions",
+            "Langfuse"
+          ],
+          "build": [
+            "Langfuse self-host (Docker); tracing OTel cho p06/p07; cost/user, p95"
+          ],
+          "notes": [
+            "obs-opentelemetry-genai",
+            "obs-langfuse-tracing"
+          ],
+          "start": "2027-04-19",
+          "end": "2027-04-25"
+        },
+        {
+          "week": 31,
+          "focus": "Fallback, rate limits, caching, Claude tiers",
+          "learn": [
+            "Retries/fallback, rate limiting, pinning",
+            "Semantic caching",
+            "Claude tiers, deprecation policy"
+          ],
+          "build": [
+            "Fallback chain Sonnet → Haiku → OpenAI adapter",
+            "Budget guard per tenant"
+          ],
+          "notes": [
+            "prod-fallback-rate-limits",
+            "prod-caching-strategies",
+            "claude-rate-limits-tiers",
+            "claude-model-versioning-deprecation"
+          ],
+          "start": "2027-04-26",
+          "end": "2027-05-02"
+        },
+        {
+          "week": 32,
+          "focus": "Gateway, cost model",
+          "learn": [
+            "LLM gateway concept; LiteLLM/OpenRouter",
+            "Unit economics",
+            "Claude caching + batch economics"
+          ],
+          "build": [
+            "Hoàn thiện llm-client: routing, cost accounting",
+            "Dashboard cost"
+          ],
+          "notes": [
+            "prod-llm-gateway-abstraction",
+            "prod-cost-model",
+            "claude-cost-optimization"
+          ],
+          "start": "2027-05-03",
+          "end": "2027-05-09"
+        },
+        {
+          "week": 33,
+          "focus": "Claude Code headless CI, runbook",
+          "learn": [
+            "`claude -p` trong GitHub Actions"
+          ],
+          "build": [
+            "`claude-review.yml`: review PR, chạy eval, draft weekly log",
+            "Runbook; blog #4"
+          ],
+          "notes": [
+            "claude-code-headless-ci",
+            "portability-multi-provider-fallback"
+          ],
+          "deliverable": "p06/p07 production-grade với tracing, fallback, CI review",
+          "start": "2027-05-10",
+          "end": "2027-05-16"
+        }
+      ]
+    },
+    {
+      "num": 10,
+      "slug": "capstone",
+      "title": "Capstone, Portfolio & Interview",
+      "weeks": [
+        {
+          "week": 34,
+          "focus": "Capstone architecture, gộp p06 + p07",
+          "learn": [
+            "Không học topic mới"
+          ],
+          "build": [
+            "Kiến trúc capstone-copilot (Mermaid); Agent SDK + RAG + MCP tools"
+          ],
+          "notes": [],
+          "start": "2027-05-17",
+          "end": "2027-05-23"
+        },
+        {
+          "week": 35,
+          "focus": "Gộp p08, guardrails, tracing",
+          "learn": [],
+          "build": [
+            "Lecture pipeline, guardrails (P3), tracing/eval (P9) vào capstone"
+          ],
+          "notes": [],
+          "start": "2027-05-24",
+          "end": "2027-05-30"
+        },
+        {
+          "week": 36,
+          "focus": "Client + polish",
+          "learn": [],
+          "build": [
+            "Client web hoặc CMP gọi backend TS",
+            "Eval suite capstone xanh"
+          ],
+          "notes": [],
+          "start": "2027-05-31",
+          "end": "2027-06-06"
+        },
+        {
+          "week": 37,
+          "focus": "Ecosystem switch test, portfolio",
+          "learn": [
+            "Điền ecosystem-map"
+          ],
+          "build": [
+            "Đổi adapter mặc định sang OpenAI trong 1 buổi; ghi cái gì gãy",
+            "README case-study cho 4 project"
+          ],
+          "notes": [
+            "ecosystem-map",
+            "ecosystem-switch-retro"
+          ],
+          "checkpoint": "Capstone vẫn chạy sau khi đổi adapter; chỉ gãy ở lớp claude",
+          "start": "2027-06-07",
+          "end": "2027-06-13"
+        },
+        {
+          "week": 38,
+          "focus": "Blog, Academy, mock interview",
+          "learn": [
+            "Anthropic Academy courses"
+          ],
+          "build": [
+            "Blog tổng kết + talk ngắn",
+            "Mock interview: system design, deep-dive, portability, behavioral"
+          ],
+          "notes": [],
+          "deliverable": "Hub 100% done, portfolio công khai",
+          "start": "2027-06-14",
+          "end": "2027-06-20"
+        }
+      ]
+    }
+  ],
+  "notes": [
+    {
+      "id": "claude-console-setup",
+      "title": "Anthropic Console setup: API key, spend limit, org",
+      "layer": "claude",
+      "section": "llm",
+      "base": "n/a"
+    },
+    {
+      "id": "llm-transformer-intuition",
+      "title": "Transformer intuition: attention, KV cache, why inference is expensive",
+      "layer": "base",
+      "section": "llm"
+    },
+    {
+      "id": "llm-tokenization",
+      "title": "Tokenization (BPE) and token counting",
+      "layer": "base",
+      "section": "llm"
+    },
+    {
+      "id": "llm-context-window",
+      "title": "Context window, output limits, context rot",
+      "layer": "base",
+      "section": "llm"
+    },
+    {
+      "id": "llm-inference-vs-training",
+      "title": "Inference vs training; pre-trained vs fine-tuned; AI engineer vs ML engineer",
+      "layer": "base",
+      "section": "llm"
+    },
+    {
+      "id": "llm-sampling-params",
+      "title": "Sampling: temperature, top_p, top_k, stop, seed, non-determinism",
+      "layer": "base",
+      "section": "llm"
+    },
+    {
+      "id": "llm-limitations-hallucination",
+      "title": "LLM limitations: hallucination, knowledge cutoff, sycophancy",
+      "layer": "base",
+      "section": "llm"
+    },
+    {
+      "id": "ml-literacy-minimum",
+      "title": "ML literacy minimum: precision/recall/F1, cosine, probability",
+      "layer": "base",
+      "section": "llm"
+    },
+    {
+      "id": "llm-pricing-model",
+      "title": "Pricing model: input/output/cached/batch tokens; estimating feature cost",
+      "layer": "base",
+      "section": "llm"
+    },
+    {
+      "id": "models-landscape-2026",
+      "title": "Model landscape 2026: closed vs open, benchmarks worth trusting",
+      "layer": "base",
+      "section": "llm"
+    },
+    {
+      "id": "claude-model-family",
+      "title": "Claude model family: Opus/Sonnet/Haiku — choosing by task, limits, pricing",
+      "layer": "claude",
+      "section": "llm",
+      "base": "models-landscape-2026"
+    },
+    {
+      "id": "claude-token-counting",
+      "title": "Claude Token Counting API",
+      "layer": "claude",
+      "section": "llm",
+      "base": "llm-tokenization"
+    },
+    {
+      "id": "claude-console-workbench",
+      "title": "Anthropic Console & Workbench",
+      "layer": "claude",
+      "section": "llm",
+      "base": "n/a"
+    },
+    {
+      "id": "portability-model-selection",
+      "title": "Portability: model selection across Claude / OpenAI / Gemini",
+      "layer": "ecosystem",
+      "section": "ecosystem"
+    },
+    {
+      "id": "api-chat-anatomy",
+      "title": "Chat API anatomy: roles, multi-turn state, streaming events, stop reasons, retries",
+      "layer": "base",
+      "section": "api"
+    },
+    {
+      "id": "prod-streaming-sse-backend",
+      "title": "Streaming backend: SSE/WebSocket, backpressure, cancel",
+      "layer": "base",
+      "section": "prod"
+    },
+    {
+      "id": "claude-messages-api",
+      "title": "Claude Messages API in depth",
+      "layer": "claude",
+      "section": "api",
+      "base": "api-chat-anatomy"
+    },
+    {
+      "id": "api-tool-calling-concept",
+      "title": "Tool/function calling concept: schema, loop, parallel tools",
+      "layer": "base",
+      "section": "api"
+    },
+    {
+      "id": "api-structured-output-concept",
+      "title": "Structured output concept: JSON schema, constrained decoding, validate+retry",
+      "layer": "base",
+      "section": "api"
+    },
+    {
+      "id": "claude-tool-use",
+      "title": "Claude tool use",
+      "layer": "claude",
+      "section": "api",
+      "base": "api-tool-calling-concept"
+    },
+    {
+      "id": "claude-structured-outputs",
+      "title": "Claude structured outputs with Zod",
+      "layer": "claude",
+      "section": "api",
+      "base": "api-structured-output-concept"
+    },
+    {
+      "id": "prompt-patterns",
+      "title": "Prompt engineering patterns: system/user, few-shot, CoT, output contracts",
+      "layer": "base",
+      "section": "prompt"
+    },
+    {
+      "id": "prompt-versioning",
+      "title": "Prompt versioning and prompts-as-code",
+      "layer": "base",
+      "section": "prompt"
+    },
+    {
+      "id": "api-prompt-caching-concept",
+      "title": "Prompt caching concept: KV-cache reuse, prefix stability, economics",
+      "layer": "base",
+      "section": "api"
+    },
+    {
+      "id": "api-reasoning-models-concept",
+      "title": "Reasoning models concept: thinking budget, latency/cost trade-off",
+      "layer": "base",
+      "section": "api"
+    },
+    {
+      "id": "api-batch-concept",
+      "title": "Batch processing concept: async jobs, offline cost reduction",
+      "layer": "base",
+      "section": "api"
+    },
+    {
+      "id": "claude-prompt-caching",
+      "title": "Claude prompt caching: breakpoints, TTL, cached-read pricing",
+      "layer": "claude",
+      "section": "api",
+      "base": "api-prompt-caching-concept"
+    },
+    {
+      "id": "claude-extended-thinking",
+      "title": "Claude extended thinking: budget tokens, interleaved thinking",
+      "layer": "claude",
+      "section": "api",
+      "base": "api-reasoning-models-concept"
+    },
+    {
+      "id": "claude-batch-files-api",
+      "title": "Claude Batch API and Files API",
+      "layer": "claude",
+      "section": "api",
+      "base": "api-batch-concept"
+    },
+    {
+      "id": "claude-prompt-guide-xml-prefill",
+      "title": "Anthropic prompt guide: XML tags, prefill, long-context tips, Workbench improver",
+      "layer": "claude",
+      "section": "prompt",
+      "base": "prompt-patterns"
+    },
+    {
+      "id": "portability-openai-responses-gemini-caching",
+      "title": "Portability: OpenAI Responses API, Gemini context caching, reasoning across vendors",
+      "layer": "ecosystem",
+      "section": "ecosystem"
+    },
+    {
+      "id": "sec-prompt-injection",
+      "title": "Prompt injection: direct, indirect via tools/RAG, exfiltration",
+      "layer": "base",
+      "section": "sec"
+    },
+    {
+      "id": "sec-owasp-llm-top10",
+      "title": "OWASP LLM Top 10",
+      "layer": "base",
+      "section": "sec"
+    },
+    {
+      "id": "sec-adversarial-testing",
+      "title": "Adversarial testing: red-team suites, regression in CI (promptfoo)",
+      "layer": "base",
+      "section": "sec"
+    },
+    {
+      "id": "sec-guardrails-layers",
+      "title": "Guardrails: defense in depth, allow-lists, least privilege, HITL, sandboxing",
+      "layer": "base",
+      "section": "sec"
+    },
+    {
+      "id": "sec-moderation-pii",
+      "title": "Moderation and PII: classifier layer, redaction, responsible logging, end-user IDs",
+      "layer": "base",
+      "section": "sec"
+    },
+    {
+      "id": "claude-as-moderator",
+      "title": "Claude as moderator/classifier (Haiku)",
+      "layer": "claude",
+      "section": "sec",
+      "base": "sec-moderation-pii"
+    },
+    {
+      "id": "claude-tool-permissions",
+      "title": "Claude tool use permission model, computer use risks",
+      "layer": "claude",
+      "section": "sec",
+      "base": "sec-guardrails-layers"
+    },
+    {
+      "id": "ethics-bias-fairness",
+      "title": "Bias, fairness, transparency, honest disclaimers",
+      "layer": "base",
+      "section": "sec"
+    },
+    {
+      "id": "alignment-overview",
+      "title": "Alignment overview: RLHF, Constitutional AI — interview level",
+      "layer": "base",
+      "section": "sec"
+    },
+    {
+      "id": "anthropic-usage-policy",
+      "title": "Anthropic Usage Policy",
+      "layer": "claude",
+      "section": "sec",
+      "base": "ethics-bias-fairness"
+    },
+    {
+      "id": "portability-openai-moderation-api",
+      "title": "Portability: OpenAI Moderation API, Gemini safety settings",
+      "layer": "ecosystem",
+      "section": "ecosystem"
+    },
+    {
+      "id": "oss-hf-hub-licenses",
+      "title": "Hugging Face Hub: model cards, licenses",
+      "layer": "base",
+      "section": "oss"
+    },
+    {
+      "id": "oss-quantization-ollama-transformersjs",
+      "title": "Quantization (GGUF), Ollama, Transformers.js",
+      "layer": "base",
+      "section": "oss"
+    },
+    {
+      "id": "ft-overview-sft-lora-rlhf",
+      "title": "Fine-tuning overview: SFT, LoRA/QLoRA, RLHF/DPO, distillation",
+      "layer": "base",
+      "section": "oss"
+    },
+    {
+      "id": "decision-api-vs-oss",
+      "title": "Decision matrix: closed API vs OSS local vs OSS hosted",
+      "layer": "base",
+      "section": "oss"
+    },
+    {
+      "id": "portability-oss-hosted-providers",
+      "title": "Portability: OSS hosted providers (Groq, Together, Bedrock, Vertex)",
+      "layer": "ecosystem",
+      "section": "ecosystem"
+    },
+    {
+      "id": "emb-what-are-embeddings",
+      "title": "Embeddings: geometry, dimensions, Matryoshka",
+      "layer": "base",
+      "section": "emb"
+    },
+    {
+      "id": "emb-similarity-metrics",
+      "title": "Similarity metrics: cosine, dot, L2",
+      "layer": "base",
+      "section": "emb"
+    },
+    {
+      "id": "emb-models-comparison",
+      "title": "Embedding models: Voyage vs OpenAI vs OSS (bge) — quality/cost",
+      "layer": "base",
+      "section": "emb"
+    },
+    {
+      "id": "emb-use-cases",
+      "title": "Embedding use cases: search, kNN classification, clustering, dedupe, anomaly",
+      "layer": "base",
+      "section": "emb"
+    },
+    {
+      "id": "data-document-parsing",
+      "title": "Document parsing/ETL: PDF/HTML/Markdown → text, OCR, tables, metadata",
+      "layer": "base",
+      "section": "emb"
+    },
+    {
+      "id": "vdb-pgvector-supabase",
+      "title": "pgvector on Supabase vs Qdrant/Chroma/Pinecone",
+      "layer": "base",
+      "section": "vdb"
+    },
+    {
+      "id": "vdb-hnsw-ivfflat",
+      "title": "Indexes: HNSW vs IVFFlat, recall/latency, filtering",
+      "layer": "base",
+      "section": "vdb"
+    },
+    {
+      "id": "vdb-hybrid-search",
+      "title": "Hybrid search: BM25 + vector, fusion",
+      "layer": "base",
+      "section": "vdb"
+    },
+    {
+      "id": "portability-embeddings-providers",
+      "title": "Portability: embeddings across providers",
+      "layer": "ecosystem",
+      "section": "ecosystem"
+    },
+    {
+      "id": "rag-pipeline",
+      "title": "RAG pipeline and where it breaks",
+      "layer": "base",
+      "section": "rag"
+    },
+    {
+      "id": "rag-chunking-strategies",
+      "title": "Chunking strategies: fixed, recursive, markdown-aware, semantic",
+      "layer": "base",
+      "section": "rag"
+    },
+    {
+      "id": "rag-query-rewriting-hyde",
+      "title": "Query rewriting and HyDE",
+      "layer": "base",
+      "section": "rag"
+    },
+    {
+      "id": "rag-reranking",
+      "title": "Reranking (Voyage/bge rerankers)",
+      "layer": "base",
+      "section": "rag"
+    },
+    {
+      "id": "rag-contextual-retrieval",
+      "title": "Contextual retrieval (portable technique, Anthropic origin)",
+      "layer": "base",
+      "section": "rag"
+    },
+    {
+      "id": "rag-citations-concept",
+      "title": "Citations concept: grounding, attribution, source links",
+      "layer": "base",
+      "section": "rag"
+    },
+    {
+      "id": "rag-vs-long-context",
+      "title": "RAG vs long-context: when a vector DB is unnecessary",
+      "layer": "base",
+      "section": "rag"
+    },
+    {
+      "id": "claude-citations-api",
+      "title": "Claude Citations API",
+      "layer": "claude",
+      "section": "rag",
+      "base": "rag-citations-concept"
+    },
+    {
+      "id": "claude-long-context-caching",
+      "title": "Claude long-context + prompt caching for documents, Files API in RAG",
+      "layer": "claude",
+      "section": "rag",
+      "base": "rag-vs-long-context"
+    },
+    {
+      "id": "rag-eval-metrics",
+      "title": "RAG evaluation: faithfulness, relevance, context precision/recall",
+      "layer": "base",
+      "section": "rag"
+    },
+    {
+      "id": "rag-failure-modes",
+      "title": "RAG failure modes catalogue",
+      "layer": "base",
+      "section": "rag"
+    },
+    {
+      "id": "rag-frameworks-vs-raw",
+      "title": "Raw SDK vs LangChain.js vs LlamaIndex.TS",
+      "layer": "base",
+      "section": "rag"
+    },
+    {
+      "id": "portability-openai-file-search-gemini-rag",
+      "title": "Portability: OpenAI file search, Gemini RAG/grounding",
+      "layer": "ecosystem",
+      "section": "ecosystem"
+    },
+    {
+      "id": "agent-loop-from-scratch",
+      "title": "Agent loop from scratch: plan→tool→observe, stop conditions, budget",
+      "layer": "base",
+      "section": "agent"
+    },
+    {
+      "id": "agent-patterns",
+      "title": "Agent patterns: chaining, routing, parallelization, orchestrator-workers, evaluator-optimizer, ReAct",
+      "layer": "base",
+      "section": "agent"
+    },
+    {
+      "id": "agent-when-not-to",
+      "title": "When not to build an agent",
+      "layer": "base",
+      "section": "agent"
+    },
+    {
+      "id": "agent-tool-design",
+      "title": "Tool design for agents: naming, schema, errors, idempotency",
+      "layer": "base",
+      "section": "agent"
+    },
+    {
+      "id": "mcp-server-ts",
+      "title": "MCP server in TypeScript: tools, resources, prompts",
+      "layer": "base",
+      "section": "mcp"
+    },
+    {
+      "id": "mcp-client-transports-auth",
+      "title": "MCP client, transports, auth; A2A overview",
+      "layer": "base",
+      "section": "mcp"
+    },
+    {
+      "id": "agent-memory-context",
+      "title": "Agent memory: short/long-term, episodic; context management/compaction",
+      "layer": "base",
+      "section": "agent"
+    },
+    {
+      "id": "agent-multi-agent-hitl",
+      "title": "Multi-agent orchestration and human-in-the-loop",
+      "layer": "base",
+      "section": "agent"
+    },
+    {
+      "id": "agent-eval-reliability",
+      "title": "Agent eval and reliability: task success, trajectory, retries, idempotency",
+      "layer": "base",
+      "section": "agent"
+    },
+    {
+      "id": "agent-frameworks-landscape",
+      "title": "Agent frameworks landscape: OpenAI Agents SDK, Google ADK, LangGraph, Mastra, Vercel AI",
+      "layer": "base",
+      "section": "agent"
+    },
+    {
+      "id": "claude-agent-sdk",
+      "title": "Claude Agent SDK: tools, permissions, hooks, subagents, sessions, memory",
+      "layer": "claude",
+      "section": "agent",
+      "base": "agent-loop-from-scratch"
+    },
+    {
+      "id": "claude-agent-skills",
+      "title": "Agent Skills",
+      "layer": "claude",
+      "section": "agent",
+      "base": "agent-tool-design"
+    },
+    {
+      "id": "claude-code-platform-hooks-subagents",
+      "title": "Claude Code as platform: CLAUDE.md, hooks, subagents",
+      "layer": "claude",
+      "section": "agent",
+      "base": "agent-multi-agent-hitl"
+    },
+    {
+      "id": "claude-code-plugins",
+      "title": "Claude Code plugins and marketplace",
+      "layer": "claude",
+      "section": "mcp",
+      "base": "mcp-server-ts"
+    },
+    {
+      "id": "claude-computer-use-overview",
+      "title": "Computer use overview and risks",
+      "layer": "claude",
+      "section": "agent",
+      "base": "agent-tool-design"
+    },
+    {
+      "id": "anthropic-managed-agents-overview",
+      "title": "Managed Agents overview",
+      "layer": "claude",
+      "section": "agent",
+      "base": "agent-frameworks-landscape"
+    },
+    {
+      "id": "portability-openai-agents-sdk-google-adk",
+      "title": "Portability: OpenAI Agents SDK, Google ADK vs Claude Agent SDK",
+      "layer": "ecosystem",
+      "section": "ecosystem"
+    },
+    {
+      "id": "mm-vision-concepts",
+      "title": "Vision input concepts: OCR, document/chart understanding, UI screenshots",
+      "layer": "base",
+      "section": "mm"
+    },
+    {
+      "id": "mm-audio-video-pipeline",
+      "title": "Audio/video pipelines: STT→LLM→TTS, video→frames/transcript, CLIP overview",
+      "layer": "base",
+      "section": "mm"
+    },
+    {
+      "id": "mm-image-generation",
+      "title": "Image generation: capabilities, limits, prompting",
+      "layer": "base",
+      "section": "mm"
+    },
+    {
+      "id": "claude-vision-images-pdf",
+      "title": "Claude vision: images and native PDF",
+      "layer": "claude",
+      "section": "mm",
+      "base": "mm-vision-concepts"
+    },
+    {
+      "id": "portability-gemini-multimodal-openai-audio",
+      "title": "Portability: Gemini multimodal, OpenAI audio/images",
+      "layer": "ecosystem",
+      "section": "ecosystem"
+    },
+    {
+      "id": "eval-golden-dataset",
+      "title": "Golden datasets and offline vs online eval",
+      "layer": "base",
+      "section": "eval"
+    },
+    {
+      "id": "eval-llm-as-judge",
+      "title": "LLM-as-judge and its biases",
+      "layer": "base",
+      "section": "eval"
+    },
+    {
+      "id": "eval-ci-regression",
+      "title": "Eval regression in CI, A/B prompts",
+      "layer": "base",
+      "section": "eval"
+    },
+    {
+      "id": "obs-opentelemetry-genai",
+      "title": "OpenTelemetry GenAI semantic conventions",
+      "layer": "base",
+      "section": "eval"
+    },
+    {
+      "id": "obs-langfuse-tracing",
+      "title": "Langfuse self-hosted tracing, cost per user, p95",
+      "layer": "base",
+      "section": "eval"
+    },
+    {
+      "id": "prod-fallback-rate-limits",
+      "title": "Retries, fallback, rate limiting, model pinning",
+      "layer": "base",
+      "section": "prod"
+    },
+    {
+      "id": "prod-caching-strategies",
+      "title": "Caching strategies: exact, semantic, prompt cache",
+      "layer": "base",
+      "section": "prod"
+    },
+    {
+      "id": "prod-llm-gateway-abstraction",
+      "title": "LLM gateway / provider abstraction: routing, fallback, cost accounting; LiteLLM/OpenRouter",
+      "layer": "base",
+      "section": "prod"
+    },
+    {
+      "id": "prod-cost-model",
+      "title": "Cost model per tenant, unit economics of a feature",
+      "layer": "base",
+      "section": "prod"
+    },
+    {
+      "id": "claude-rate-limits-tiers",
+      "title": "Claude rate limits and usage tiers",
+      "layer": "claude",
+      "section": "prod",
+      "base": "prod-fallback-rate-limits"
+    },
+    {
+      "id": "claude-model-versioning-deprecation",
+      "title": "Claude model versioning and deprecation policy",
+      "layer": "claude",
+      "section": "prod",
+      "base": "prod-fallback-rate-limits"
+    },
+    {
+      "id": "claude-cost-optimization",
+      "title": "Claude cost optimization: caching + batch economics, Console usage",
+      "layer": "claude",
+      "section": "prod",
+      "base": "prod-cost-model"
+    },
+    {
+      "id": "claude-code-headless-ci",
+      "title": "Claude Code headless (claude -p) in CI",
+      "layer": "claude",
+      "section": "eval",
+      "base": "eval-ci-regression"
+    },
+    {
+      "id": "portability-multi-provider-fallback",
+      "title": "Portability: multi-provider fallback design",
+      "layer": "ecosystem",
+      "section": "ecosystem"
+    },
+    {
+      "id": "ecosystem-map",
+      "title": "Ecosystem map: base concept → Claude → OpenAI → Gemini",
+      "layer": "ecosystem",
+      "section": "ecosystem"
+    },
+    {
+      "id": "ecosystem-switch-retro",
+      "title": "Ecosystem switch retro: swapping default adapter to OpenAI",
+      "layer": "ecosystem",
+      "section": "ecosystem"
+    },
+    {
+      "id": "anthropic-changelog",
+      "title": "Anthropic changelog watch (monthly)",
+      "layer": "claude",
+      "section": "llm",
+      "base": "n/a"
+    }
+  ],
+  "projects": [
+    {
+      "id": "shared-llm-client",
+      "title": "shared/llm-client — provider abstraction (ports & adapters)",
+      "phase": 0
+    },
+    {
+      "id": "p01-llm-cli",
+      "title": "p01 — LLM CLI (streaming, token count, cost)",
+      "phase": 1
+    },
+    {
+      "id": "p02-lesson-forge",
+      "title": "p02 — Lesson Forge (structured output, caching, batch, guardrails)",
+      "phase": 2
+    },
+    {
+      "id": "p04-api-vs-local",
+      "title": "p04 — API vs local bench",
+      "phase": 4
+    },
+    {
+      "id": "p05-brain-search",
+      "title": "p05 — Brain Search (embeddings, pgvector, hybrid)",
+      "phase": 5
+    },
+    {
+      "id": "p06-ask-my-brain",
+      "title": "p06 — Ask My Brain (RAG with citations)",
+      "phase": 6
+    },
+    {
+      "id": "p07-brain-agent",
+      "title": "p07 — Brain Agent (MCP server, Agent SDK, Claude Code plugin)",
+      "phase": 7
+    },
+    {
+      "id": "p08-lecture-pipeline",
+      "title": "p08 — Lecture Pipeline (multimodal)",
+      "phase": 8
+    },
+    {
+      "id": "capstone-copilot",
+      "title": "Capstone — ShipWithAI Copilot",
+      "phase": 10
+    }
+  ]
+}
