@@ -21,10 +21,10 @@ Xem [[README|roadmap tổng]] · [[weeks|bảng tuần]]
 - [ ] Đọc Anthropic Console: keys, spend limits
 
 **Build (3h)**
-- [ ] git init, push repo public
+- [x] git init, push repo public
 - [ ] Cài Quartz v4 vào repo (giữ content/), Obsidian vault trỏ content/
-- [ ] Chạy `node scripts/scaffold.mjs` và `node scripts/progress.mjs`
-- [ ] GitHub Actions deploy Pages
+- [x] Chạy `node scripts/scaffold.mjs` và `node scripts/progress.mjs`
+- [x] GitHub Actions deploy Pages
 - [ ] pnpm workspace `projects/`, `.env.example`
 - [ ] `projects/shared/llm-client`: interface + contract test (chưa adapter)
 - [ ] Anthropic Console: API key + spend limit
